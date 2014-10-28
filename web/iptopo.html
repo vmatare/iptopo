@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="ol-3.0.0/css/ol.css" type="text/css">
+
+<script src="js/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="js/jquery.tools.min.js" type="text/javascript"></script>
+<script src="js/orientdb-api.js" type="text/javascript"></script>
+<script src="js/jquery.json-2.2.min.js" type="text/javascript"></script>
+
+<script src="ol-3.0.0/build/ol-debug.js" type="text/javascript"></script>
+
+<script src="js/iptopo/iptopo.js" type="text/javascript"></script>
+
+<style>
+.node_menu {
+	width: auto;
+	height: auto;
+	max-height: 300px;
+	position: absolute;
+	z-index: 1;
+	background: #fff;	
+	/*color: #0;*/
+	/*overflow: auto;*/
+	opacity: 0.6;
+	/*padding: 4px;
+	/*border-color: #817C69;*/
+	border-width: 2px;
+	border-style: ridge;
+}
+
+.node_menu>select {
+	height: auto;
+	max-height: 150px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.node_menu>div {
+	padding: 4px;
+}
+
+.node_menu>div:hover {
+	background: #2572C4;
+	color: #D4FF8D;
+}
+
+.node_menu>.menu_title {
+	width: 100%;
+}
+</style>
+
+</head>
+
+
+<body>
+	<div style="width: 100%; height: 600px;">
+	<div id="map" style="z-index: 0;"></div>
+	<div class="node_menu" id="node_menu" style="display: none">
+	<div id="menu_title">Select one or more IPs located at this point:</div>
+	<select id ="node_select" multiple>
+	<option>dummy</option>
+	</select>
+	</div>
+	</div>
+	<script type="text/javascript">
+		/*var map = new ol.Map({
+		 target: 'map',
+		 layers: [
+		 new ol.layer.Tile({
+		 source: new ol.source.OSM()
+		 })
+		 //get_iptopo_layer(),
+		 ],
+		 view: new ol.View()
+		 });*/
+
+		var map = new ol.Map({
+			target : 'map',
+			layers : [
+				new ol.layer.Tile({
+					source : new ol.source.OSM()
+				})
+			],
+			view : new ol.View({
+				center : ol.proj.transform([ 37.41, 8.82 ], 'EPSG:4326',
+						'EPSG:3857'),
+				zoom : 4
+			})
+		});
+		var iptopo = new IpTopo(map, 'http://localhost:2480/iptopo');
+		iptopo.create_map_layer();
+		
+	</script>
+</body>
+
+</html>
