@@ -1,6 +1,6 @@
 package iptopo.geoip;
 
-import iptopo.db.DbClient;
+import iptopo.db.ObjectDbClient;
 import iptopo.graph.IpNode;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class GeoIPclient implements Runnable {
 	
 	private BlockingQueue<IpNode> jobs;
 	private WebTarget rest_target;
-	private DbClient db;
+	private ObjectDbClient db;
 	
 	public GeoIPclient() {
 		jobs = new LinkedBlockingQueue<IpNode>();
@@ -40,7 +40,7 @@ public class GeoIPclient implements Runnable {
 	public void run() {
 		IpNode node;
 		try {
-			db = new DbClient();
+			db = new ObjectDbClient();
 			while (!Thread.interrupted()) {
 				node = jobs.take();
 				String json_str = rest_target.path(node.getAddr()).request().get(String.class);

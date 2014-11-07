@@ -1,7 +1,7 @@
 package iptopo.crawler;
 
 
-import iptopo.db.DbClient;
+import iptopo.db.ObjectDbClient;
 import iptopo.geoip.GeoIPclient;
 import iptopo.graph.IpNode;
 import iptopo.tracer.Tracer;
@@ -33,7 +33,7 @@ public class IpCrawler implements Runnable {
 	private IpNode root_node;
 	private ThreadPoolExecutor executor;
 	private GeoIPclient geoip_client;
-	private DbClient db;
+	private ObjectDbClient db;
 	
 	
 	public IpCrawler(TracerFactory tracer_factory, String src_ip, GeoIPclient geoip_client) throws IOException {
@@ -44,7 +44,7 @@ public class IpCrawler implements Runnable {
 		tracers_ready = new ArrayBlockingQueue<Tracer>(max_concurrency);
 		tracer_factory.setReadyQueue(tracers_ready);
 		targets_todo = new LinkedBlockingQueue<InetAddress>(100);
-		db = new DbClient();
+		db = new ObjectDbClient();
 		root_node = db.get_node(src_ip);
 		tracer_factory.setRoot(root_node);
 	}

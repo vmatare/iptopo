@@ -13,13 +13,13 @@ import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.orientechnologies.orient.object.db.OObjectDatabaseTx;
 
-public class DbClient {
+public class ObjectDbClient {
 	public static final String db_server = "plocal:" + Config.getDbLocalPath();
 	private OServerAdmin server_admin;
 	private OObjectDatabaseTx db;
 
 
-	public DbClient() throws IOException {
+	public ObjectDbClient() throws IOException {
 		try {
 			server_admin = new OServerAdmin("remote:localhost");
 			server_admin.connect(Config.getDbUser(), Config.getDbPassword());
@@ -37,7 +37,6 @@ public class DbClient {
 		db = new OObjectDatabaseTx(db_server + "/" + Config.getDbName());
 		db.open("admin", "admin");
 		db.getEntityManager().registerEntityClasses("iptopo.graph");
-		db.registerHook(new DbConsistencyHook());
 	}
 
 	public OObjectDatabaseTx getDb() {
