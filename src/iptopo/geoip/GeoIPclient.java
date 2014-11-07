@@ -1,6 +1,6 @@
 package iptopo.geoip;
 
-import iptopo.DbClient;
+import iptopo.db.DbClient;
 import iptopo.graph.IpNode;
 
 import java.io.IOException;
@@ -56,5 +56,8 @@ public class GeoIPclient implements Runnable {
 			e1.printStackTrace();
 		}
 		catch (InterruptedException e) {}
+		finally {
+			db.close();
+		}
 	}
 }

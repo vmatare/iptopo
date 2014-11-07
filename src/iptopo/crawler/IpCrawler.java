@@ -1,7 +1,7 @@
 package iptopo.crawler;
 
 
-import iptopo.DbClient;
+import iptopo.db.DbClient;
 import iptopo.geoip.GeoIPclient;
 import iptopo.graph.IpNode;
 import iptopo.tracer.Tracer;

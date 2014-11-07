@@ -1,7 +1,7 @@
 package iptopo.seeders;
 
-import iptopo.DbClient;
 import iptopo.crawler.IpCrawler;
+import iptopo.db.DbClient;
 import iptopo.graph.IpNode;
 
 import java.io.IOException;
